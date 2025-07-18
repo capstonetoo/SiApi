@@ -1,5 +1,7 @@
 # Use a Python slim base image (Debian-based, common for Railway)
-FROM python:3.12-slim-buster
+
+# Gunakan base image Python standar
+FROM python:3.10
 
 # Instal dependensi sistem yang diperlukan oleh OpenCV
 # (Pustaka ini mungkin sudah ada di base image yang lebih besar,
