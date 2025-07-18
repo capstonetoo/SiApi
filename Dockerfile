@@ -1,11 +1,9 @@
-# Gunakan base image Python yang sesuai
-FROM python:3.10-slim-buster
+# Gunakan base image Python yang sesuai dengan Debian Bookworm (saat ini stable)
+FROM python:3.10-slim-bookworm # <--- UBAH DI SINI!
 
 # Instal dependensi sistem yang diperlukan oleh OpenCV
-# Pastikan Anda menjalankan apt-get update terlebih dahulu
-# dan membersihkan cache apt setelah instalasi untuk menjaga ukuran image tetap kecil
 RUN apt-get update && \
-    apt-get install -y libgl1-mesa-glx libgtk2.0-dev && \
+    apt-get install -y libgl1-mesa-glx libxrender1 libsm6 libxext6 && \
     rm -rf /var/lib/apt/lists/*
 
 # Atur working directory di dalam container
