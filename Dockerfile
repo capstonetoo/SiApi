@@ -1,31 +1,25 @@
-# Use a Python slim base image (Debian-based, common for Railway)
-FROM python:3.12-slim-buster
+# Gunakan base image Python yang sesuai
+FROM python:3.10-slim-buster
 
-# Install libGL.so.1 dependency for OpenCV
-# Update apt lists, install the package, and clean up apt cache to keep image small
+# Instal dependensi sistem yang diperlukan oleh OpenCV
+# Pastikan Anda menjalankan apt-get update terlebih dahulu
+# dan membersihkan cache apt setelah instalasi untuk menjaga ukuran image tetap kecil
 RUN apt-get update && \
-    apt-get install -y libgl1-mesa-glx && \
+    apt-get install -y libgl1-mesa-glx libgtk2.0-dev && \
     rm -rf /var/lib/apt/lists/*
-    
 
-# Set the working directory inside the container
+# Atur working directory di dalam container
 WORKDIR /app
 
-# Copy your requirements.txt and install Python dependencies
-# It's good practice to copy requirements.txt and install dependencies first
-# to leverage Docker's build cache
+# Copy requirements.txt dan install dependensi Python
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of your application code
+# Copy semua kode aplikasi Anda ke dalam container
 COPY . .
 
-# Expose the port your Flask app listens on (if applicable)
-# Default for Flask is 5000, but adjust if your app listens on another port
-EXPOSE 5000
+# Exposure port yang akan digunakan Uvicorn
+EXPOSE 8000
 
-# Command to run your application when the container starts
-# Replace 'app.py' with your actual main application file name
-# If you use Gunicorn or Waitress for production, the command will be different, e.g.:
-# CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"] # For a Flask app named 'app' in app.py
-CMD ["python", "app.py"]
+# Perintah untuk menjalankan aplikasi Anda dengan Uvicorn
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
