@@ -1,5 +1,5 @@
 # Gunakan base image Python yang sesuai dengan Debian Bookworm (saat ini stable)
-FROM python:3.10-slim-bookworm # <--- UBAH DI SINI!
+FROM python:3.10-slim-bookworm
 
 # Instal dependensi sistem yang diperlukan oleh OpenCV
 RUN apt-get update && \
