@@ -1,14 +1,12 @@
 # Use a Python slim base image (Debian-based, common for Railway)
+FROM python:3.12-slim-buster
 
-# Gunakan base image Python standar
-FROM python:3.10
-
-# Instal dependensi sistem yang diperlukan oleh OpenCV
-# (Pustaka ini mungkin sudah ada di base image yang lebih besar,
-# tapi tidak ada salahnya memastikan)
+# Install libGL.so.1 dependency for OpenCV
+# Update apt lists, install the package, and clean up apt cache to keep image small
 RUN apt-get update && \
-    apt-get install -y libgl1-mesa-glx libxrender1 libsm6 libxext6 && \
+    apt-get install -y libgl1-mesa-glx && \
     rm -rf /var/lib/apt/lists/*
+    
 
 # Set the working directory inside the container
 WORKDIR /app
