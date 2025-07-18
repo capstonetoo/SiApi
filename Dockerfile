@@ -3,7 +3,7 @@ FROM python:3.12-slim-bookworm
 
 # Instal dependensi sistem yang diperlukan oleh OpenCV
 RUN apt-get update && \
-    apt-get install -y libgl1-mesa-glx libxrender1 libsm6 libxext6 && \
+    apt-get install -y libgl1-mesa-glx libxrender1 libsm6 libxext6 libglib2.0-0 && \
     rm -rf /var/lib/apt/lists/*
 
 # Atur working directory di dalam container
