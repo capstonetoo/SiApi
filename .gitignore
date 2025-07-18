@@ -11,13 +11,6 @@ venv/
 **/.env
 .env
 
-# Dataset atau gambar temporari
-*.jpg
-*.jpeg
-*.png
-assets/images/temp_*.jpg
-debug_image.jpg
-
 # File editor / sistem
 .DS_Store
 Thumbs.db
